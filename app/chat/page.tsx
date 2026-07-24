@@ -19,7 +19,7 @@ export default function ChatPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    socket = io("http://localhost:5000");
+    socket = io("https://random-chat-x93x.onrender.com");
 
     socket.on("connect", () => {
       console.log("✅ Connected:", socket.id);
