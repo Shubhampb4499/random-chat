@@ -17,6 +17,11 @@ const io = new Server(server, {
 });
 
 let waitingUser = null;
+let onlineUsers = 0;
+
+function updateOnlineUsers() {
+  io.emit("online-users", onlineUsers);
+}
 
 function disconnectPartner(socket) {
   if (!socket.partner) return;
@@ -30,7 +35,12 @@ function disconnectPartner(socket) {
 }
 
 io.on("connection", (socket) => {
+
+  onlineUsers++;
+updateOnlineUsers();
+
   console.log("✅ User Connected:", socket.id);
+  console.log("👥 Online Users:", onlineUsers);
 
   socket.on("find-stranger", () => {
     if (socket.partner) return;
@@ -93,12 +103,17 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
+
+    onlineUsers--;
+updateOnlineUsers();
+
     if (waitingUser === socket) {
       waitingUser = null;
     }
 
     disconnectPartner(socket);
 
+    console.log("👥 Online Users:", onlineUsers);
     console.log("❌ User Disconnected:", socket.id);
   });
 });
