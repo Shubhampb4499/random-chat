@@ -35,10 +35,11 @@ export default function ChatPage() {
       setConnected(false);
     });
 
-    socket.on("stranger-found", () => {
+  socket.on("stranger-found", () => {
   setMessages([]);
   setSearching(false);
   setConnected(true);
+  setStrangerTyping(false);
 });
 
     socket.on("receive-message", (msg: string) => {
@@ -59,10 +60,17 @@ socket.on("stop-typing", () => {
 socket.on("partner-left", () => {
   setConnected(false);
   setSearching(true);
+  setStrangerTyping(false);
 
-  setMessages([
+  setMessages((prev) => [
+    ...prev,
     "Stranger left the chat.",
   ]);
+
+  setTimeout(() => {
+    socket.emit("find-stranger");
+  }, 1000);
+});
 
   setTimeout(() => {
     socket.emit("find-stranger");
