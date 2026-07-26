@@ -15,6 +15,7 @@ export default function ChatPage() {
 
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<string[]>([]);
+  const [strangerTyping, setStrangerTyping] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -40,17 +41,27 @@ export default function ChatPage() {
     });
 
     socket.on("receive-message", (msg: string) => {
-      setMessages((prev) => [...prev, "Stranger: " + msg]);
-    });
+  setStrangerTyping(false);
 
-    socket.on("partner-left", () => {
-      setConnected(false);
+  setMessages((prev) => [...prev, "Stranger: " + msg]);
+});
 
-      setMessages((prev) => [
-        ...prev,
-        "Stranger left the chat.",
-      ]);
-    });
+socket.on("typing", () => {
+  setStrangerTyping(true);
+});
+
+socket.on("stop-typing", () => {
+  setStrangerTyping(false);
+});
+
+socket.on("partner-left", () => {
+  setConnected(false);
+
+  setMessages((prev) => [
+    ...prev,
+    "Stranger left the chat.",
+  ]);
+});
 
     return () => {
       socket.disconnect();
@@ -79,6 +90,7 @@ export default function ChatPage() {
     ]);
 
     setMessage("");
+    socket.emit("stop-typing");
   }
 
   function nextStranger() {
@@ -126,6 +138,12 @@ export default function ChatPage() {
           />
         ))}
 
+        {strangerTyping && (
+  <div className="text-gray-400 italic mb-2">
+    ✍️ Stranger is typing...
+  </div>
+)}
+
         <div ref={messagesEndRef} />
 
       </div>
@@ -135,8 +153,17 @@ export default function ChatPage() {
         <input
           type="text"
           value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={(e) => {
+onChange={(e) => {
+  setMessage(e.target.value);
+
+  socket.emit("typing");
+
+  clearTimeout((window as any).typingTimeout);
+
+  (window as any).typingTimeout = setTimeout(() => {
+    socket.emit("stop-typing");
+  }, 700);
+}}          onKeyDown={(e) => {
             if (e.key === "Enter") {
               sendMessage();
             }

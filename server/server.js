@@ -71,7 +71,17 @@ updateOnlineUsers();
       socket.partner.emit("receive-message", message);
     }
   });
+socket.on("typing", () => {
+  if (socket.partner) {
+    socket.partner.emit("typing");
+  }
+});
 
+socket.on("stop-typing", () => {
+  if (socket.partner) {
+    socket.partner.emit("stop-typing");
+  }
+});
   socket.on("next-stranger", () => {
     console.log("⏭ Next Stranger:", socket.id);
 
