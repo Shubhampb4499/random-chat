@@ -36,9 +36,10 @@ export default function ChatPage() {
     });
 
     socket.on("stranger-found", () => {
-      setSearching(false);
-      setConnected(true);
-    });
+  setMessages([]);
+  setSearching(false);
+  setConnected(true);
+});
 
     socket.on("receive-message", (msg: string) => {
   setStrangerTyping(false);
@@ -47,6 +48,7 @@ export default function ChatPage() {
 });
 
 socket.on("typing", () => {
+  console.log("📢 Stranger Typing");
   setStrangerTyping(true);
 });
 
@@ -56,11 +58,15 @@ socket.on("stop-typing", () => {
 
 socket.on("partner-left", () => {
   setConnected(false);
+  setSearching(true);
 
-  setMessages((prev) => [
-    ...prev,
+  setMessages([
     "Stranger left the chat.",
   ]);
+
+  setTimeout(() => {
+    socket.emit("find-stranger");
+  }, 1000);
 });
 
     return () => {
