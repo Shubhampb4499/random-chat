@@ -11,20 +11,20 @@ let socket: Socket;
 export default function ChatPage() {
   const [connected, setConnected] = useState(false);
   const [searching, setSearching] = useState(false);
-
   const [onlineUsers, setOnlineUsers] = useState(0);
 
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<string[]>([]);
+
   const [strangerTyping, setStrangerTyping] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  
-  function onEmojiClick(emojiData: { emoji: string }) {
-  setMessage((prev) => prev + emojiData.emoji);
-  setShowEmojiPicker(false);
-}
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  function onEmojiClick(emojiData: { emoji: string }) {
+    setMessage((prev) => prev + emojiData.emoji);
+    setShowEmojiPicker(false);
+  }
 
   useEffect(() => {
     socket = io("https://random-chat-x93x.onrender.com");
@@ -42,43 +42,40 @@ export default function ChatPage() {
       setConnected(false);
     });
 
-  socket.on("stranger-found", () => {
-  setMessages([]);
-  setSearching(false);
-  setConnected(true);
-  setStrangerTyping(false);
-});
+    socket.on("stranger-found", () => {
+      setMessages([]);
+      setSearching(false);
+      setConnected(true);
+      setStrangerTyping(false);
+    });
 
     socket.on("receive-message", (msg: string) => {
-  setStrangerTyping(false);
+      setStrangerTyping(false);
 
-  setMessages((prev) => [...prev, "Stranger: " + msg]);
-});
+      setMessages((prev) => [
+        ...prev,
+        "Stranger: " + msg,
+      ]);
+    });
 
-socket.on("typing", () => {
-  console.log("📢 Stranger Typing");
-  setStrangerTyping(true);
-});
+    socket.on("typing", () => {
+      setStrangerTyping(true);
+    });
 
-socket.on("stop-typing", () => {
-  setStrangerTyping(false);
-});
+    socket.on("stop-typing", () => {
+      setStrangerTyping(false);
+    });
 
-socket.on("partner-left", () => {
-  setConnected(false);
-  setSearching(false);
-  setStrangerTyping(false);
+    socket.on("partner-left", () => {
+      setConnected(false);
+      setSearching(false);
+      setStrangerTyping(false);
 
-  setMessages((prev) => [
-    ...prev,
-    "Stranger left the chat.",
-  ]);
-});
-
-  setTimeout(() => {
-    socket.emit("find-stranger");
-  }, 1000);
-});
+      setMessages((prev) => [
+        ...prev,
+        "Stranger left the chat.",
+      ]);
+    });
 
     return () => {
       socket.disconnect();
@@ -90,8 +87,7 @@ socket.on("partner-left", () => {
       behavior: "smooth",
     });
   }, [messages]);
-
-  function startChat() {
+    function startChat() {
     setSearching(true);
     socket.emit("find-stranger");
   }
@@ -107,6 +103,7 @@ socket.on("partner-left", () => {
     ]);
 
     setMessage("");
+
     socket.emit("stop-typing");
   }
 
@@ -117,8 +114,7 @@ socket.on("partner-left", () => {
 
     socket.emit("next-stranger");
   }
-
-  return (
+    return (
     <main className="min-h-screen bg-gray-950 text-white flex flex-col items-center p-6">
 
       <StatusBar
@@ -156,10 +152,10 @@ socket.on("partner-left", () => {
         ))}
 
         {strangerTyping && (
-  <div className="text-gray-400 italic mb-2">
-    ✍️ Stranger is typing...
-  </div>
-)}
+          <div className="text-gray-400 italic mb-2">
+            ✍️ Stranger is typing...
+          </div>
+        )}
 
         <div ref={messagesEndRef} />
 
@@ -167,39 +163,40 @@ socket.on("partner-left", () => {
 
       <div className="w-full max-w-3xl flex gap-3">
 
-      <div className="relative">
-  <button
-    onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-    className="bg-yellow-500 hover:bg-yellow-600 text-2xl px-4 py-3 rounded-xl"
-  >
-    😊
-  </button>
+        <div className="relative">
+          <button
+            onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+            className="bg-yellow-500 hover:bg-yellow-600 text-2xl px-4 py-3 rounded-xl"
+          >
+            😊
+          </button>
 
-  {showEmojiPicker && (
-    <div className="absolute bottom-16 left-0 z-50">
-      <EmojiPicker
-  onEmojiClick={onEmojiClick}
-  width={320}
-  height={400}
-/>
-    </div>
-  )}
-</div>
+          {showEmojiPicker && (
+            <div className="absolute bottom-16 left-0 z-50">
+              <EmojiPicker
+                onEmojiClick={onEmojiClick}
+                width={320}
+                height={400}
+              />
+            </div>
+          )}
+        </div>
 
         <input
           type="text"
           value={message}
-onChange={(e) => {
-  setMessage(e.target.value);
+          onChange={(e) => {
+            setMessage(e.target.value);
 
-  socket.emit("typing");
+            socket.emit("typing");
 
-  clearTimeout((window as any).typingTimeout);
+            clearTimeout((window as any).typingTimeout);
 
-  (window as any).typingTimeout = setTimeout(() => {
-    socket.emit("stop-typing");
-  }, 700);
-}}          onKeyDown={(e) => {
+            (window as any).typingTimeout = setTimeout(() => {
+              socket.emit("stop-typing");
+            }, 700);
+          }}
+          onKeyDown={(e) => {
             if (e.key === "Enter") {
               sendMessage();
             }
