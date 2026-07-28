@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { io, Socket } from "socket.io-client";
+import EmojiPicker from "emoji-picker-react";
 import StatusBar from "../../components/StatusBar";
 import MessageBubble from "../../components/MessageBubble";
 
@@ -16,6 +17,12 @@ export default function ChatPage() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<string[]>([]);
   const [strangerTyping, setStrangerTyping] = useState(false);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  
+  function onEmojiClick(emojiData: { emoji: string }) {
+  setMessage((prev) => prev + emojiData.emoji);
+  setShowEmojiPicker(false);
+}
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -59,17 +66,13 @@ socket.on("stop-typing", () => {
 
 socket.on("partner-left", () => {
   setConnected(false);
-  setSearching(true);
+  setSearching(false);
   setStrangerTyping(false);
 
   setMessages((prev) => [
     ...prev,
     "Stranger left the chat.",
   ]);
-
-  setTimeout(() => {
-    socket.emit("find-stranger");
-  }, 1000);
 });
 
   setTimeout(() => {
@@ -163,6 +166,25 @@ socket.on("partner-left", () => {
       </div>
 
       <div className="w-full max-w-3xl flex gap-3">
+
+      <div className="relative">
+  <button
+    onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+    className="bg-yellow-500 hover:bg-yellow-600 text-2xl px-4 py-3 rounded-xl"
+  >
+    😊
+  </button>
+
+  {showEmojiPicker && (
+    <div className="absolute bottom-16 left-0 z-50">
+      <EmojiPicker
+  onEmojiClick={onEmojiClick}
+  width={320}
+  height={400}
+/>
+    </div>
+  )}
+</div>
 
         <input
           type="text"
