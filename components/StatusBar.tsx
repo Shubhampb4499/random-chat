@@ -11,9 +11,13 @@ export default function StatusBar({
 }: StatusBarProps) {
   return (
     <div className="w-full max-w-3xl mb-6">
-      <h1 className="text-4xl font-bold text-center mb-4">
-        💬 Anonymous Chat
+      <h1 className="text-4xl font-bold text-center mb-2">
+        💬 ChatNova
       </h1>
+
+      <p className="text-center text-gray-400 mb-4">
+        Meet random strangers instantly
+      </p>
 
       <div className="flex flex-col items-center gap-3">
         {connected ? (
