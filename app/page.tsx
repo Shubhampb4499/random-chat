@@ -1,12 +1,24 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
+import SafetyPopup from "../components/SafetyPopup";
 
 export default function Home() {
   const router = useRouter();
+  const [showPopup, setShowPopup] = useState(false);
 
   return (
     <main className="min-h-screen bg-gray-950 text-white">
+
+      {showPopup && (
+  <SafetyPopup
+    onContinue={() => {
+      setShowPopup(false);
+      router.push("/chat");
+    }}
+  />
+)}
 
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center text-center px-6 py-24">
@@ -20,7 +32,7 @@ export default function Home() {
         </p>
 
         <button
-          onClick={() => router.push("/chat")}
+          onClick={() => setShowPopup(true)}
           className="bg-green-500 hover:bg-green-600 px-8 py-4 rounded-xl text-xl font-semibold"
         >
           🚀 Start Chat
