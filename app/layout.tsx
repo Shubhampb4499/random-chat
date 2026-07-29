@@ -13,11 +13,51 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ChatNova - Random Chat with Strangers",
+  metadataBase: new URL("https://chatnova.in"),
+
+  title: {
+    default: "ChatNova - Free Random Chat with Strangers",
+    template: "%s | ChatNova",
+  },
+
   description:
-    "ChatNova is a free anonymous random chat platform. Meet new strangers instantly without signup.",
+    "ChatNova is a free anonymous random chat platform. Meet strangers online instantly without signup. Safe, fast and completely free random chat.",
+
+  keywords: [
+    "Random Chat",
+    "Anonymous Chat",
+    "Stranger Chat",
+    "Chat with Strangers",
+    "Free Chat",
+    "Online Chat",
+    "Random Video Chat",
+    "Talk to Strangers",
+    "ChatNova",
+  ],
+
   verification: {
     google: "FL5HOzaDnzV3YXbWnZpzAUt_m-gUwiqFMen78I3HQ6s",
+  },
+
+  openGraph: {
+    title: "ChatNova - Free Random Chat with Strangers",
+    description:
+      "Meet random strangers instantly. No Signup. No Login. 100% Free.",
+    url: "https://chatnova.in",
+    siteName: "ChatNova",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "ChatNova - Free Random Chat with Strangers",
+    description:
+      "Meet random strangers instantly. No Signup. No Login. 100% Free.",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
