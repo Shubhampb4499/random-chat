@@ -5,6 +5,7 @@ import { io, Socket } from "socket.io-client";
 import EmojiPicker from "emoji-picker-react";
 import StatusBar from "../../components/StatusBar";
 import MessageBubble from "../../components/MessageBubble";
+import ReportPopup from "../../components/ReportPopup";
 
 let socket: Socket;
 
@@ -18,6 +19,7 @@ export default function ChatPage() {
 
   const [strangerTyping, setStrangerTyping] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [showReport, setShowReport] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -117,6 +119,18 @@ export default function ChatPage() {
     return (
     <main className="min-h-screen bg-gray-950 text-white flex flex-col items-center p-6">
 
+    {showReport && (
+  <ReportPopup
+    onClose={() => setShowReport(false)}
+    onSubmit={(reason) => {
+      alert("Report Submitted: " + reason);
+
+      setShowReport(false);
+
+      socket.emit("next-stranger");
+    }}
+  />
+)}
       <StatusBar
         connected={connected}
         searching={searching}
@@ -133,15 +147,26 @@ export default function ChatPage() {
       )}
 
       {connected && (
-        <button
-          onClick={nextStranger}
-          className="bg-red-500 hover:bg-red-600 px-6 py-3 rounded-xl mb-4"
-        >
-          ⏭ Next Stranger
-        </button>
-      )}
+  <div className="flex gap-3 mb-4">
 
-      <div className="w-full max-w-3xl flex-1 bg-gray-900 rounded-2xl p-4 overflow-y-auto mb-4">
+    <button
+      onClick={nextStranger}
+      className="bg-red-500 hover:bg-red-600 px-6 py-3 rounded-xl"
+    >
+      ⏭ Next Stranger
+    </button>
+
+    <button
+      onClick={() => setShowReport(true)}
+      className="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-xl"
+    >
+      🚩 Report User
+    </button>
+
+  </div>
+)}
+
+<div className="w-full max-w-3xl flex-1 bg-gray-900 rounded-2xl p-4 overflow-y-auto mb-4">
 
         {messages.map((msg, index) => (
           <MessageBubble
