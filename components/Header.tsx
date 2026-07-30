@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Header() {
   return (
@@ -10,21 +9,11 @@ export default function Header() {
 
         {/* Logo */}
         <Link
-          href="/"
-          className="flex items-center gap-3"
-        >
-          <Image
-            src="/logo.png"
-            alt="ChatNova Logo"
-            width={42}
-            height={42}
-            priority
-          />
-
-          <span className="text-3xl font-bold text-white">
-            ChatNova
-          </span>
-        </Link>
+  href="/"
+  className="text-3xl font-bold text-white"
+>
+  💬 ChatNova
+</Link>
 
         {/* Navigation */}
         <nav className="hidden md:flex gap-8 text-gray-300 font-medium">
