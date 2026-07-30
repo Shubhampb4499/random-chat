@@ -18,6 +18,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://chatnova.in"),
+  manifest: "/manifest.json",
 
   title: {
     default: "ChatNova - Free Random Chat with Strangers",
@@ -26,6 +27,7 @@ export const metadata: Metadata = {
 
   description:
     "ChatNova is a free anonymous random chat platform. Meet strangers online instantly without signup. Safe, fast and completely free random chat.",
+    applicationName: "ChatNova",
 
   keywords: [
     "Random Chat",
@@ -58,7 +60,12 @@ export const metadata: Metadata = {
     description:
       "Meet random strangers instantly. No Signup. No Login. 100% Free.",
   },
-
+  
+appleWebApp: {
+  capable: true,
+  statusBarStyle: "default",
+  title: "ChatNova",
+},
   robots: {
     index: true,
     follow: true,
