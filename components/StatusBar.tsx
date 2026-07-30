@@ -15,7 +15,7 @@ export default function StatusBar({
         💬 ChatNova
       </h1>
 
-      <p className="text-center text-gray-400 mb-4">
+      <p className="text-center text-gray-300 mb-4">
         Meet random strangers instantly
       </p>
 

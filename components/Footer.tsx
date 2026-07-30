@@ -23,7 +23,7 @@ export default function Footer() {
               💬 ChatNova
             </h2>
 
-            <p className="text-gray-400">
+            <p className="text-gray-300">
               Meet random strangers instantly.
               Safe, anonymous and completely free.
             </p>
@@ -34,7 +34,7 @@ export default function Footer() {
               Quick Links
             </h3>
 
-            <div className="flex flex-col gap-2 text-gray-400">
+            <div className="flex flex-col gap-2 text-gray-300">
 
               <Link href="/about">About</Link>
 
@@ -60,7 +60,7 @@ export default function Footer() {
               Legal
             </h3>
 
-            <p className="text-gray-400 text-sm leading-7">
+            <p className="text-gray-300 text-sm leading-7">
               ChatNova is intended only for users
               18 years or older.
               <br />
