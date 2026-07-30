@@ -29,6 +29,10 @@ export default function ChatPage() {
   }
 
   useEffect(() => {
+    window.scrollTo({
+  top: 0,
+  behavior: "instant",
+  });
     socket = io("https://random-chat-x93x.onrender.com");
 
     socket.on("connect", () => {
