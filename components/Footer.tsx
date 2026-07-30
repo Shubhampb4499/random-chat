@@ -23,7 +23,7 @@ export default function Footer() {
               💬 ChatNova
             </h2>
 
-            <p className="text-gray-300">
+            <p className="text-gray-200">
               Meet random strangers instantly.
               Safe, anonymous and completely free.
             </p>
@@ -71,7 +71,7 @@ export default function Footer() {
 
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-6 text-center text-gray-500 text-sm">
+        <div className="border-t border-gray-800 mt-8 pt-6 text-center text-gray-300 text-sm">
 
           © 2026 ChatNova. All Rights Reserved.
 

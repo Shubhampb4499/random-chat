@@ -149,7 +149,7 @@ export default function ChatPage() {
       {!connected && !searching && (
         <button
           onClick={startChat}
-          className="bg-green-500 hover:bg-green-600 px-8 py-3 rounded-xl font-bold mb-6"
+          className="bg-green-700 hover:bg-green-800 text-white px-8 py-3 rounded-xl font-bold mb-6"
         >
           🚀 Start Chat
         </button>
