@@ -4,6 +4,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -78,6 +79,25 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <Script
+  id="schema-org"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "ChatNova",
+      url: "https://chatnova.in",
+      description:
+        "ChatNova is a free anonymous random chat platform where you can instantly connect with strangers without signup.",
+      inLanguage: "en",
+      publisher: {
+        "@type": "Organization",
+        name: "ChatNova",
+      },
+    }),
+  }}
+/>
 
   <Header />
 
