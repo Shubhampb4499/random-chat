@@ -2,12 +2,18 @@
 
 import { useEffect, useRef, useState } from "react";
 import { io, Socket } from "socket.io-client";
-import EmojiPicker from "emoji-picker-react";
 import StatusBar from "../../components/StatusBar";
 import MessageBubble from "../../components/MessageBubble";
 import ReportPopup from "../../components/ReportPopup";
+import dynamic from "next/dynamic";
 
 let socket: Socket;
+const EmojiPicker = dynamic(
+  () => import("emoji-picker-react"),
+  {
+    ssr: false,
+  }
+);
 
 export default function ChatPage() {
   const [connected, setConnected] = useState(false);
