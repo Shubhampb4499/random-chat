@@ -9,11 +9,13 @@ import Script from "next/script";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -60,7 +62,7 @@ export const metadata: Metadata = {
     description:
       "Meet random strangers instantly. No Signup. No Login. 100% Free.",
   },
-  
+
 appleWebApp: {
   capable: true,
   statusBarStyle: "default",
