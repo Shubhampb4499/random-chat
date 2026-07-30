@@ -121,8 +121,7 @@ export default function ChatPage() {
     socket.emit("next-stranger");
   }
     return (
-    <main className="min-h-screen bg-gray-950 text-white flex flex-col items-center p-6">
-
+    <main className="h-[calc(100vh-80px)] bg-gray-950 text-white flex flex-col items-center overflow-hidden p-4">
     {showReport && (
   <ReportPopup
     onClose={() => setShowReport(false)}
@@ -170,7 +169,7 @@ export default function ChatPage() {
   </div>
 )}
 
-<div className="w-full max-w-3xl flex-1 bg-gray-900 rounded-2xl p-4 overflow-y-auto mb-4">
+<div className="w-full max-w-3xl flex-1 bg-gray-900 rounded-2xl p-4 overflow-y-auto">
 
         {messages.map((msg, index) => (
           <MessageBubble
@@ -190,7 +189,7 @@ export default function ChatPage() {
 
       </div>
 
-      <div className="w-full max-w-3xl flex gap-3">
+      <div className="w-full max-w-3xl flex gap-3 pt-3 border-t border-gray-800 bg-gray-950">
 
         <div className="relative">
           <button
