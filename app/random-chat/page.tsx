@@ -17,10 +17,53 @@ export const metadata: Metadata = {
     canonical: "https://chatnova.in/random-chat",
   },
 };
-
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is ChatNova completely free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. ChatNova is completely free to use."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to create an account?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. ChatNova does not require registration or login."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my identity anonymous?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. ChatNova allows anonymous text chat without sharing personal information."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I leave a chat anytime?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. You can disconnect anytime and instantly connect with another stranger."
+      }
+    }
+  ]
+};
 export default function RandomChatPage() {
   return (
     <main className="max-w-5xl mx-auto px-6 py-12 text-white">
+      <script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify(faqSchema),
+  }}
+/>
 
       <h1 className="text-5xl font-bold mb-6">
         Random Chat with Strangers
