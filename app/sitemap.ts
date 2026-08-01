@@ -1,47 +1,133 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = "https://chatnova.in";
+
   return [
     {
-      url: "https://chatnova.in",
+      url: baseUrl,
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 1,
     },
 
     {
-      url: "https://chatnova.in/about",
+      url: `${baseUrl}/chat`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 1,
+    },
+
+    {
+      url: `${baseUrl}/about`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
 
     {
-      url: "https://chatnova.in/contact",
+      url: `${baseUrl}/contact`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
     },
 
     {
-      url: "https://chatnova.in/privacy-policy",
+      url: `${baseUrl}/privacy-policy`,
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.5,
     },
 
     {
-      url: "https://chatnova.in/terms",
+      url: `${baseUrl}/terms`,
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.5,
     },
 
     {
-      url: "https://chatnova.in/community-guidelines",
+      url: `${baseUrl}/community-guidelines`,
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.5,
+    },
+
+    {
+      url: `${baseUrl}/random-chat`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+
+    {
+      url: `${baseUrl}/anonymous-chat`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+
+    {
+      url: `${baseUrl}/chat-with-strangers`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+
+    {
+      url: `${baseUrl}/text-chat`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+
+    {
+      url: `${baseUrl}/online-chat`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+
+    {
+      url: `${baseUrl}/random-text-chat`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+
+    {
+      url: `${baseUrl}/stranger-chat`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+
+    {
+      url: `${baseUrl}/omegle-alternative`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+
+    {
+      url: `${baseUrl}/chat-sites`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+
+    {
+      url: `${baseUrl}/online-stranger-chat`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+
+    {
+      url: `${baseUrl}/free-chat`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
     },
   ];
 }
