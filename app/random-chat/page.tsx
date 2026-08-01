@@ -196,7 +196,7 @@ export default function RandomChatPage() {
 
   <p className="text-gray-300 leading-8">
     If someone behaves inappropriately, you can immediately disconnect and use
-    the Report feature. Our goal is to provide a safe, anonymous and enjoyable random text chat experience for everyone..
+    the Report feature. Our goal is to provide a safe, anonymous and enjoyable random text chat experience for everyone.
   </p>
 
 </section>
@@ -275,7 +275,69 @@ export default function RandomChatPage() {
   </Link>
 
 </section>
+<section className="mt-20">
 
+  <h2 className="text-3xl font-bold mb-8">
+    Explore More Chat Options
+  </h2>
+
+  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+
+    <Link
+      href="/anonymous-chat"
+      className="bg-gray-900 hover:bg-gray-800 p-5 rounded-xl"
+    >
+      <h3 className="font-semibold text-lg">
+        Anonymous Chat
+      </h3>
+
+      <p className="text-gray-400 mt-2 text-sm">
+        Chat privately without revealing your identity.
+      </p>
+    </Link>
+
+    <Link
+      href="/chat-with-strangers"
+      className="bg-gray-900 hover:bg-gray-800 p-5 rounded-xl"
+    >
+      <h3 className="font-semibold text-lg">
+        Chat with Strangers
+      </h3>
+
+      <p className="text-gray-400 mt-2 text-sm">
+        Meet random people from around the world.
+      </p>
+    </Link>
+
+    <Link
+      href="/free-chat"
+      className="bg-gray-900 hover:bg-gray-800 p-5 rounded-xl"
+    >
+      <h3 className="font-semibold text-lg">
+        Free Chat
+      </h3>
+
+      <p className="text-gray-400 mt-2 text-sm">
+        Enjoy unlimited free text chatting.
+      </p>
+    </Link>
+
+    <Link
+      href="/online-chat"
+      className="bg-gray-900 hover:bg-gray-800 p-5 rounded-xl"
+    >
+      <h3 className="font-semibold text-lg">
+        Online Chat
+      </h3>
+
+      <p className="text-gray-400 mt-2 text-sm">
+        Start online conversations instantly.
+      </p>
+    </Link>
+
+  </div>
+
+</section>
     </main>
   );
 }
