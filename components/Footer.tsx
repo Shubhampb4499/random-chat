@@ -6,29 +6,52 @@ import { usePathname } from "next/navigation";
 export default function Footer() {
   const pathname = usePathname();
 
-  // Chat Page वर Footer दाखवायचा नाही
   if (pathname === "/chat") {
     return null;
   }
 
   return (
     <footer className="bg-gray-900 border-t border-gray-800 mt-auto">
-
       <div className="max-w-6xl mx-auto px-6 py-10">
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-4 gap-8">
 
+          {/* Brand */}
           <div>
             <h2 className="text-2xl font-bold text-white mb-3">
               💬 ChatNova
             </h2>
 
-            <p className="text-gray-200">
+            <p className="text-gray-200 leading-7">
               Meet random strangers instantly.
               Safe, anonymous and completely free.
             </p>
           </div>
 
+          {/* SEO Pages */}
+          <div>
+            <h3 className="font-semibold mb-3 text-white">
+              Popular Chats
+            </h3>
+
+            <div className="flex flex-col gap-2 text-gray-300">
+
+              <Link href="/random-chat">Random Chat</Link>
+
+              <Link href="/anonymous-chat">Anonymous Chat</Link>
+
+              <Link href="/chat-with-strangers">
+                Chat with Strangers
+              </Link>
+
+              <Link href="/free-chat">Free Chat</Link>
+
+              <Link href="/online-chat">Online Chat</Link>
+
+            </div>
+          </div>
+
+          {/* Quick Links */}
           <div>
             <h3 className="font-semibold mb-3 text-white">
               Quick Links
@@ -40,13 +63,9 @@ export default function Footer() {
 
               <Link href="/contact">Contact</Link>
 
-              <Link href="/privacy-policy">
-                Privacy Policy
-              </Link>
+              <Link href="/privacy-policy">Privacy Policy</Link>
 
-              <Link href="/terms">
-                Terms
-              </Link>
+              <Link href="/terms">Terms</Link>
 
               <Link href="/community-guidelines">
                 Community Guidelines
@@ -55,6 +74,7 @@ export default function Footer() {
             </div>
           </div>
 
+          {/* Legal */}
           <div>
             <h3 className="font-semibold mb-3 text-white">
               Legal
@@ -82,7 +102,6 @@ export default function Footer() {
         </div>
 
       </div>
-
     </footer>
   );
 }
