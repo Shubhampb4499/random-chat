@@ -47,6 +47,29 @@ export default function Footer() {
               <Link href="/free-chat">Free Chat</Link>
 
               <Link href="/online-chat">Online Chat</Link>
+              <Link href="/random-chat">Random Chat</Link>
+
+               <Link href="/anonymous-chat">Anonymous Chat</Link>
+
+               <Link href="/chat-with-strangers">Chat with Strangers</Link>
+
+              <Link href="/free-chat">Free Chat</Link>
+
+<Link href="/online-chat">Online Chat</Link>
+
+<Link href="/text-chat">Text Chat</Link>
+
+<Link href="/private-chat">Private Chat</Link>
+
+<Link href="/stranger-chat">Stranger Chat</Link>
+
+<Link href="/omegle-alternative">Omegle Alternative</Link>
+
+<Link href="/chat-sites">Chat Sites</Link>
+
+<Link href="/online-stranger-chat">Online Stranger Chat</Link>
+
+<Link href="/random-text-chat">Random Text Chat</Link>
 
             </div>
           </div>

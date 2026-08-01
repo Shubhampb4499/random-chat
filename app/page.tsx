@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import SafetyPopup from "../components/SafetyPopup";
 
 export default function Home() {
@@ -12,16 +13,17 @@ export default function Home() {
     <main className="min-h-screen bg-gray-950 text-white">
 
       {showPopup && (
-  <SafetyPopup
-    onContinue={() => {
-      setShowPopup(false);
-      router.push("/chat");
-    }}
-  />
-)}
+        <SafetyPopup
+          onContinue={() => {
+            setShowPopup(false);
+            router.push("/chat");
+          }}
+        />
+      )}
 
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center text-center px-6 py-24">
+
         <h1 className="text-5xl font-bold mb-6">
           💬 ChatNova - Free Random Chat
         </h1>
@@ -41,10 +43,12 @@ export default function Home() {
         <p className="mt-8 text-green-400 font-semibold">
           🟢 Users Online
         </p>
+
       </section>
 
       {/* What is ChatNova */}
       <section className="max-w-5xl mx-auto px-6 py-16">
+
         <h2 className="text-3xl font-bold mb-6">
           What is ChatNova?
         </h2>
@@ -54,10 +58,12 @@ export default function Home() {
           instantly connect with strangers from around the world. No account,
           no signup and no personal information required.
         </p>
+
       </section>
 
       {/* Why Choose */}
       <section className="max-w-5xl mx-auto px-6 py-16">
+
         <h2 className="text-3xl font-bold mb-8">
           Why Choose ChatNova?
         </h2>
@@ -105,10 +111,12 @@ export default function Home() {
           </div>
 
         </div>
+
       </section>
 
       {/* FAQ */}
       <section className="max-w-5xl mx-auto px-6 py-16">
+
         <h2 className="text-3xl font-bold mb-8">
           Frequently Asked Questions
         </h2>
@@ -146,10 +154,66 @@ export default function Home() {
           </div>
 
         </div>
+
+      </section>
+            {/* Explore Chat Categories */}
+      <section className="max-w-6xl mx-auto px-6 py-16">
+
+        <h2 className="text-3xl font-bold mb-8 text-center">
+          Explore Chat Categories
+        </h2>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <Link href="/random-chat" className="bg-gray-900 p-6 rounded-xl hover:bg-gray-800 transition">
+            <h3 className="text-xl font-bold mb-2">🎲 Random Chat</h3>
+            <p className="text-gray-400">
+              Meet random strangers instantly.
+            </p>
+          </Link>
+
+          <Link href="/anonymous-chat" className="bg-gray-900 p-6 rounded-xl hover:bg-gray-800 transition">
+            <h3 className="text-xl font-bold mb-2">🔒 Anonymous Chat</h3>
+            <p className="text-gray-400">
+              Stay completely private.
+            </p>
+          </Link>
+
+          <Link href="/chat-with-strangers" className="bg-gray-900 p-6 rounded-xl hover:bg-gray-800 transition">
+            <h3 className="text-xl font-bold mb-2">🌍 Chat with Strangers</h3>
+            <p className="text-gray-400">
+              Meet people worldwide.
+            </p>
+          </Link>
+
+          <Link href="/text-chat" className="bg-gray-900 p-6 rounded-xl hover:bg-gray-800 transition">
+            <h3 className="text-xl font-bold mb-2">💬 Text Chat</h3>
+            <p className="text-gray-400">
+              Fast anonymous text chat.
+            </p>
+          </Link>
+
+          <Link href="/online-chat" className="bg-gray-900 p-6 rounded-xl hover:bg-gray-800 transition">
+            <h3 className="text-xl font-bold mb-2">🟢 Online Chat</h3>
+            <p className="text-gray-400">
+              Chat online instantly.
+            </p>
+          </Link>
+
+          <Link href="/random-text-chat" className="bg-gray-900 p-6 rounded-xl hover:bg-gray-800 transition">
+            <h3 className="text-xl font-bold mb-2">⚡ Random Text Chat</h3>
+            <p className="text-gray-400">
+              Quick random conversations.
+            </p>
+          </Link>
+
+        </div>
+
       </section>
 
       {/* Footer */}
       <footer className="border-t border-gray-800 mt-16">
+
         <div className="max-w-6xl mx-auto px-6 py-8 flex flex-wrap gap-6 justify-center text-gray-400">
 
           <a href="/privacy-policy">Privacy Policy</a>
@@ -161,6 +225,7 @@ export default function Home() {
           <a href="/contact">Contact</a>
 
         </div>
+
       </footer>
 
     </main>
