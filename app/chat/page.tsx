@@ -127,19 +127,10 @@ export default function ChatPage() {
     socket.emit("next-stranger");
   }
     return (
-    <main className="h-[calc(100vh-80px)] bg-gray-950 text-white flex flex-col items-center overflow-hidden p-4">
-    {showReport && (
-  <ReportPopup
-    onClose={() => setShowReport(false)}
-    onSubmit={(reason) => {
-      alert("Report Submitted: " + reason);
+  <main className="h-[calc(100vh-80px)] bg-gray-950 text-white">
 
-      setShowReport(false);
+    <div className="h-full max-w-5xl mx-auto flex flex-col px-3 py-3">
 
-      socket.emit("next-stranger");
-    }}
-  />
-)}
       <StatusBar
         connected={connected}
         searching={searching}
@@ -149,33 +140,44 @@ export default function ChatPage() {
       {!connected && !searching && (
         <button
           onClick={startChat}
-          className="bg-green-700 hover:bg-green-800 text-white px-8 py-3 rounded-xl font-bold mb-6"
+          className="mt-4 bg-green-700 hover:bg-green-800 text-white py-3 rounded-xl font-bold w-full"
         >
           🚀 Start Chat
         </button>
       )}
 
       {connected && (
-  <div className="flex gap-3 mb-4">
+        <div className="flex flex-wrap gap-3 mt-4 mb-3">
 
-    <button
-      onClick={nextStranger}
-      className="bg-red-500 hover:bg-red-600 px-6 py-3 rounded-xl"
-    >
-      ⏭ Next Stranger
-    </button>
+          <button
+            onClick={nextStranger}
+            className="flex-1 min-w-[160px] bg-red-600 hover:bg-red-700 py-3 rounded-xl"
+          >
+            ⏭ Next Stranger
+          </button>
 
-    <button
-      onClick={() => setShowReport(true)}
-      className="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-xl"
-    >
-      🚩 Report User
-    </button>
+          <button
+            onClick={() => setShowReport(true)}
+            className="flex-1 min-w-[160px] bg-orange-600 hover:bg-orange-700 py-3 rounded-xl"
+          >
+            🚩 Report
+          </button>
 
-  </div>
-)}
+        </div>
+      )}
 
-<div className="w-full max-w-3xl flex-1 bg-gray-900 rounded-2xl p-4 overflow-y-auto">
+      <div
+        className="
+          flex-1
+          bg-gray-900
+          rounded-2xl
+          border
+          border-gray-800
+          overflow-y-auto
+          p-4
+          mt-2
+        "
+      >
 
         {messages.map((msg, index) => (
           <MessageBubble
@@ -186,7 +188,7 @@ export default function ChatPage() {
         ))}
 
         {strangerTyping && (
-          <div className="text-gray-400 italic mb-2">
+          <div className="text-gray-400 italic text-sm mb-2">
             ✍️ Stranger is typing...
           </div>
         )}
@@ -195,60 +197,97 @@ export default function ChatPage() {
 
       </div>
 
-      <div className="w-full max-w-3xl flex gap-3 pt-3 border-t border-gray-800 bg-gray-950">
+      <div className="mt-3">
 
-        <div className="relative">
-          <button
-            onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-            className="bg-yellow-500 hover:bg-yellow-600 text-2xl px-4 py-3 rounded-xl"
-          >
-            😊
-          </button>
+  <div className="flex items-center gap-2 bg-gray-900 border border-gray-800 rounded-full px-3 py-2 shadow-lg">
 
-          {showEmojiPicker && (
-            <div className="absolute bottom-16 left-0 z-50">
-              <EmojiPicker
-                onEmojiClick={onEmojiClick}
-                width={320}
-                height={400}
-              />
-            </div>
-          )}
+    {/* Emoji */}
+    <div className="relative">
+
+      <button
+        onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+        className="text-2xl hover:scale-110 transition"
+      >
+        😊
+      </button>
+
+      {showEmojiPicker && (
+        <div className="absolute bottom-14 left-0 z-50">
+          <EmojiPicker
+            onEmojiClick={onEmojiClick}
+            width={320}
+            height={400}
+          />
         </div>
+      )}
 
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => {
-            setMessage(e.target.value);
+    </div>
 
-            socket.emit("typing");
+    {/* Input */}
 
-            clearTimeout((window as any).typingTimeout);
+    <input
+      type="text"
+      value={message}
+      onChange={(e) => {
+        setMessage(e.target.value);
 
-            (window as any).typingTimeout = setTimeout(() => {
-              socket.emit("stop-typing");
-            }, 700);
+        socket.emit("typing");
+
+        clearTimeout((window as any).typingTimeout);
+
+        (window as any).typingTimeout = setTimeout(() => {
+          socket.emit("stop-typing");
+        }, 700);
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          sendMessage();
+        }
+      }}
+      placeholder="Type a message..."
+      className="flex-1 bg-transparent outline-none text-white placeholder-gray-500 px-2"
+    />
+
+    {/* Send */}
+
+    <button
+      onClick={sendMessage}
+      disabled={!connected}
+      className="
+        w-11
+        h-11
+        rounded-full
+        bg-blue-600
+        hover:bg-blue-700
+        disabled:bg-gray-700
+        flex
+        items-center
+        justify-center
+        transition
+      "
+    >
+      ➤
+    </button>
+
+  </div>
+
+</div>
+
+      {showReport && (
+        <ReportPopup
+          onClose={() => setShowReport(false)}
+          onSubmit={(reason) => {
+            alert("Report Submitted: " + reason);
+
+            setShowReport(false);
+
+            socket.emit("next-stranger");
           }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              sendMessage();
-            }
-          }}
-          placeholder="Type your message..."
-          className="flex-1 bg-gray-800 text-white px-4 py-3 rounded-xl outline-none"
         />
+      )}
 
-        <button
-          onClick={sendMessage}
-          disabled={!connected}
-          className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 px-6 py-3 rounded-xl"
-        >
-          Send
-        </button>
+    </div>
 
-      </div>
-
-    </main>
-  );
+  </main>
+);
 }

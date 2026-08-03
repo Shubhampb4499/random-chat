@@ -10,34 +10,30 @@ export default function StatusBar({
   onlineUsers,
 }: StatusBarProps) {
   return (
-    <div className="w-full max-w-3xl mb-6">
-      <h1 className="text-4xl font-bold text-center mb-2">
-        💬 ChatNova
-      </h1>
+    <div className="w-full flex items-center justify-between bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 mb-4">
 
-      <p className="text-center text-gray-300 mb-4">
-        Meet random strangers instantly
-      </p>
-
-      <div className="flex flex-col items-center gap-3">
+      {/* Left Side */}
+      <div>
         {connected ? (
-          <div className="bg-green-600 px-4 py-2 rounded-full">
+          <div className="text-green-400 font-semibold flex items-center gap-2">
             🟢 Stranger Connected
           </div>
         ) : searching ? (
-          <div className="bg-yellow-600 px-4 py-2 rounded-full">
+          <div className="text-yellow-400 font-semibold flex items-center gap-2">
             🔍 Searching for Stranger...
           </div>
         ) : (
-          <div className="bg-gray-700 px-4 py-2 rounded-full">
-            ⚪ Click Start Chat
+          <div className="text-gray-400 font-semibold flex items-center gap-2">
+            ⚪ Ready to Chat
           </div>
         )}
-
-        <div className="bg-blue-600 px-4 py-2 rounded-full font-semibold">
-          👥 Online Users: {onlineUsers}
-        </div>
       </div>
+
+      {/* Right Side */}
+      <div className="text-blue-400 font-semibold whitespace-nowrap">
+        👥 {onlineUsers} Online
+      </div>
+
     </div>
   );
 }
