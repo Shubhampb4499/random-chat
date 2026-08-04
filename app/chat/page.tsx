@@ -5,15 +5,11 @@ import { io, Socket } from "socket.io-client";
 import StatusBar from "../../components/StatusBar";
 import MessageBubble from "../../components/MessageBubble";
 import ReportPopup from "../../components/ReportPopup";
-import dynamic from "next/dynamic";
+import ChatInput from "../../components/ChatInput";
+import SearchingAnimation from "../../components/SearchingAnimation";
+import TypingIndicator from "../../components/TypingIndicator";
 
 let socket: Socket;
-const EmojiPicker = dynamic(
-  () => import("emoji-picker-react"),
-  {
-    ssr: false,
-  }
-);
 
 export default function ChatPage() {
   const [connected, setConnected] = useState(false);
@@ -79,15 +75,21 @@ export default function ChatPage() {
     });
 
     socket.on("partner-left", () => {
-      setConnected(false);
-      setSearching(false);
-      setStrangerTyping(false);
+  setConnected(false);
+  setSearching(false);
+  setStrangerTyping(false);
 
-      setMessages((prev) => [
-        ...prev,
-        "Stranger left the chat.",
-      ]);
-    });
+  setMessages((prev) => [
+    ...prev,
+    "Stranger left the chat.",
+  ]);
+
+  setTimeout(() => {
+    setMessages([]);
+    setSearching(true);
+    socket.emit("next-stranger");
+  }, 3000);
+});
 
     return () => {
       socket.disconnect();
@@ -127,9 +129,9 @@ export default function ChatPage() {
     socket.emit("next-stranger");
   }
     return (
-  <main className="h-[calc(100vh-80px)] bg-gray-950 text-white">
+  <main className="h-[calc(100dvh-80px)] bg-gray-950 text-white overflow-hidden">
 
-    <div className="h-full max-w-5xl mx-auto flex flex-col px-3 py-3">
+    <div className="h-full max-w-5xl mx-auto flex flex-col px-3 py-3 overflow-hidden">
 
       <StatusBar
         connected={connected}
@@ -167,111 +169,51 @@ export default function ChatPage() {
       )}
 
       <div
-        className="
-          flex-1
-          bg-gray-900
-          rounded-2xl
-          border
-          border-gray-800
-          overflow-y-auto
-          p-4
-          mt-2
-        "
-      >
+  className="
+    flex-1
+    min-h-0
+    bg-gray-900
+    rounded-2xl
+    border
+    border-gray-800
+    overflow-y-auto
+    p-4
+    mt-2
+  "
+>
 
-        {messages.map((msg, index) => (
-          <MessageBubble
-            key={index}
-            text={msg.replace(/^You:\s|^Stranger:\s/, "")}
-            isOwn={msg.startsWith("You:")}
-          />
-        ))}
+        {searching ? (
+  <SearchingAnimation />
+) : (
+  <>
+    {messages.map((msg, index) => (
+      <MessageBubble
+        key={index}
+        text={msg.replace(/^You:\s|^Stranger:\s/, "")}
+        isOwn={msg.startsWith("You:")}
+      />
+    ))}
 
-        {strangerTyping && (
-          <div className="text-gray-400 italic text-sm mb-2">
-            ✍️ Stranger is typing...
-          </div>
-        )}
+    {strangerTyping && <TypingIndicator />}
 
-        <div ref={messagesEndRef} />
+    <div ref={messagesEndRef} />
+  </>
+)}
 
       </div>
 
-      <div className="mt-3">
-
-  <div className="flex items-center gap-2 bg-gray-900 border border-gray-800 rounded-full px-3 py-2 shadow-lg">
-
-    {/* Emoji */}
-    <div className="relative">
-
-      <button
-        onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-        className="text-2xl hover:scale-110 transition"
-      >
-        😊
-      </button>
-
-      {showEmojiPicker && (
-        <div className="absolute bottom-14 left-0 z-50">
-          <EmojiPicker
-            onEmojiClick={onEmojiClick}
-            width={320}
-            height={400}
-          />
-        </div>
-      )}
-
-    </div>
-
-    {/* Input */}
-
-    <input
-      type="text"
-      value={message}
-      onChange={(e) => {
-        setMessage(e.target.value);
-
-        socket.emit("typing");
-
-        clearTimeout((window as any).typingTimeout);
-
-        (window as any).typingTimeout = setTimeout(() => {
-          socket.emit("stop-typing");
-        }, 700);
-      }}
-      onKeyDown={(e) => {
-        if (e.key === "Enter") {
-          sendMessage();
-        }
-      }}
-      placeholder="Type a message..."
-      className="flex-1 bg-transparent outline-none text-white placeholder-gray-500 px-2"
-    />
-
-    {/* Send */}
-
-    <button
-      onClick={sendMessage}
-      disabled={!connected}
-      className="
-        w-11
-        h-11
-        rounded-full
-        bg-blue-600
-        hover:bg-blue-700
-        disabled:bg-gray-700
-        flex
-        items-center
-        justify-center
-        transition
-      "
-    >
-      ➤
-    </button>
-
-  </div>
-
-</div>
+      {!searching && (
+  <ChatInput
+    message={message}
+    setMessage={setMessage}
+    sendMessage={sendMessage}
+    connected={connected}
+    showEmojiPicker={showEmojiPicker}
+    setShowEmojiPicker={setShowEmojiPicker}
+    onEmojiClick={onEmojiClick}
+    socket={socket}
+  />
+)}
 
       {showReport && (
         <ReportPopup
