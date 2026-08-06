@@ -18,6 +18,7 @@ const io = new Server(server, {
 
 let waitingUser = null;
 let onlineUsers = 0;
+const skippedPairs = new Map();
 
 function updateOnlineUsers() {
   io.emit("online-users", onlineUsers);
@@ -27,6 +28,12 @@ function disconnectPartner(socket) {
   if (!socket.partner) return;
 
   const partner = socket.partner;
+
+  const pairKey1 = socket.id + "-" + partner.id;
+const pairKey2 = partner.id + "-" + socket.id;
+
+skippedPairs.set(pairKey1, Date.now());
+skippedPairs.set(pairKey2, Date.now());
 
   partner.partner = null;
   socket.partner = null;
@@ -44,9 +51,23 @@ updateOnlineUsers();
 
   socket.on("find-stranger", () => {
     if (socket.partner) return;
+    if (waitingUser === socket) return;
 
     if (waitingUser && waitingUser !== socket) {
       const partner = waitingUser;
+      const pairKey = socket.id + "-" + partner.id;
+
+if (skippedPairs.has(pairKey)) {
+  const skippedAt = skippedPairs.get(pairKey);
+
+  if (Date.now() - skippedAt < 5 * 60 * 1000) {
+    socket.emit("searching");
+    return;
+  } else {
+    skippedPairs.delete(pairKey);
+    skippedPairs.delete(partner.id + "-" + socket.id);
+  }
+}
 
       waitingUser = null;
 
@@ -66,23 +87,38 @@ updateOnlineUsers();
     }
   });
 
-  socket.on("send-message", (message) => {
-    if (socket.partner) {
-      socket.partner.emit("receive-message", message);
-    }
-  });
-socket.on("typing", () => {
+  socket.on("send-message", (data) => {
+  if (!data) return;
+  if (!data.text) return;
+  if (!data.text.trim()) return;
+  if (data.text.length > 500) return;
+
   if (socket.partner) {
-    socket.partner.emit("typing");
+    // Stranger ला message पाठव
+    socket.partner.emit("receive-message", data);
+
+    // Sender ला ✓ Sent
+    socket.emit("message-sent", data.id);
+
+    // Stranger ने message receive केल्यावर ✓✓ Delivered
+    socket.partner.once("message-received-" + data.id, () => {
+      socket.emit("message-delivered", data.id);
+    });
   }
+});
+socket.on("typing", () => {
+  if (!socket.partner) return;
+  socket.partner.emit("typing");
 });
 
 socket.on("stop-typing", () => {
-  if (socket.partner) {
-    socket.partner.emit("stop-typing");
-  }
+  if (!socket.partner) return;
+  socket.partner.emit("stop-typing");
 });
   socket.on("next-stranger", () => {
+    if (waitingUser === socket) {
+    waitingUser = null;
+}
     console.log("⏭ Next Stranger:", socket.id);
 
     disconnectPartner(socket);
@@ -114,7 +150,9 @@ socket.on("stop-typing", () => {
 
   socket.on("disconnect", () => {
 
-    onlineUsers--;
+    if (onlineUsers > 0) {
+  onlineUsers--;
+}
 updateOnlineUsers();
 
     if (waitingUser === socket) {

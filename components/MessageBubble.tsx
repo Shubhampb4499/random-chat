@@ -1,11 +1,13 @@
 type MessageBubbleProps = {
   text: string;
   isOwn: boolean;
+  delivered?: boolean;
 };
 
 export default function MessageBubble({
   text,
   isOwn,
+  delivered,
 }: MessageBubbleProps) {
   const time = new Date().toLocaleTimeString([], {
     hour: "2-digit",
@@ -40,16 +42,23 @@ export default function MessageBubble({
 
         <div
           className={`
+            flex items-center gap-1
             text-[10px]
             mt-2
             ${
               isOwn
-                ? "text-blue-100 text-right"
-                : "text-gray-300"
+                ? "justify-end text-blue-100"
+                : "justify-start text-gray-300"
             }
           `}
         >
-          {time}
+          <span>{time}</span>
+
+          {isOwn && (
+            <span className="font-semibold">
+              {delivered ? "✓✓" : "✓"}
+            </span>
+          )}
         </div>
       </div>
     </div>

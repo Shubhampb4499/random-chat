@@ -30,15 +30,11 @@ export default function ChatInput({
 }: ChatInputProps) {
   return (
     <div className="sticky bottom-0 mt-3 bg-gray-950 pt-3">
-
       <div className="flex items-center gap-2 bg-gray-900 border border-gray-800 rounded-full px-3 py-2 shadow-xl">
 
         <div className="relative">
-
           <button
-            onClick={() =>
-              setShowEmojiPicker(!showEmojiPicker)
-            }
+            onClick={() => setShowEmojiPicker(!showEmojiPicker)}
             className="text-2xl hover:scale-110 transition"
           >
             😊
@@ -53,14 +49,17 @@ export default function ChatInput({
               />
             </div>
           )}
-
         </div>
 
         <input
           type="text"
           value={message}
+          placeholder="Type a message..."
+          className="flex-1 bg-transparent outline-none text-white placeholder-gray-500 px-2"
           onChange={(e) => {
             setMessage(e.target.value);
+
+            if (!socket) return;
 
             socket.emit("typing");
 
@@ -72,15 +71,20 @@ export default function ChatInput({
           }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
+              e.preventDefault();
+
               sendMessage();
+
+              socket?.emit("stop-typing");
             }
           }}
-          placeholder="Type a message..."
-          className="flex-1 bg-transparent outline-none text-white placeholder-gray-500 px-2"
         />
 
         <button
-          onClick={sendMessage}
+          onClick={() => {
+            sendMessage();
+            socket?.emit("stop-typing");
+          }}
           disabled={!connected}
           className="w-11 h-11 rounded-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 flex items-center justify-center"
         >
@@ -88,7 +92,6 @@ export default function ChatInput({
         </button>
 
       </div>
-
     </div>
   );
 }
