@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Text Chat Online | Free Anonymous Text Chat | ChatNova",
   description:
-    "Start free text chat with strangers instantly. No signup, no login required. Enjoy anonymous text conversations on ChatNova.",
+    "Use ChatNova for free online text chat with strangers. Start an anonymous text conversation without signup or login and switch conversations whenever you want.",
   keywords: [
     "Text Chat",
     "Free Text Chat",
@@ -24,26 +24,34 @@ const faqSchema = {
   mainEntity: [
     {
       "@type": "Question",
+      name: "What is text chat on ChatNova?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "ChatNova provides text-based conversations with randomly matched strangers. You can start chatting without creating an account.",
+      },
+    },
+    {
+      "@type": "Question",
       name: "Is ChatNova text chat free?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. ChatNova offers completely free text chatting.",
+        text: "Yes. ChatNova's text chat is free to use and does not require a subscription.",
       },
     },
     {
       "@type": "Question",
-      name: "Do I need to register?",
+      name: "Do I need an account to use text chat?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No. You can start chatting instantly without registration.",
+        text: "No. ChatNova does not require registration or login before starting a text chat.",
       },
     },
     {
       "@type": "Question",
-      name: "Is text chat anonymous?",
+      name: "Can I leave a text chat?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Your personal identity is never required.",
+        text: "Yes. You can leave a conversation and use the chat controls to connect with another stranger.",
       },
     },
   ],
@@ -51,7 +59,7 @@ const faqSchema = {
 
 export default function TextChatPage() {
   return (
-    <main className="max-w-5xl mx-auto px-6 py-12 text-white">
+    <main className="max-w-6xl mx-auto px-6 py-16 text-white">
 
       <script
         type="application/ld+json"
@@ -60,230 +68,263 @@ export default function TextChatPage() {
         }}
       />
 
-      <h1 className="text-5xl font-bold mb-6">
-        Text Chat
-      </h1>
+      {/* Hero */}
+      <section className="text-center max-w-4xl mx-auto">
 
-      <p className="text-gray-300 text-lg leading-8 mb-8">
-        ChatNova lets you enjoy free anonymous text chat with strangers from
-        around the world. No signup, no login and no personal information
-        required. Simply click below and start chatting instantly.
-      </p>
+        <h1 className="text-5xl font-bold mb-6">
+          Text Chat Online
+        </h1>
 
-      <Link
-        href="/chat"
-        className="inline-block bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-xl font-semibold text-lg"
-      >
-        🚀 Start Text Chat
-      </Link>
+        <p className="text-gray-300 text-lg leading-8 mb-8">
+          ChatNova lets you have simple text conversations with randomly
+          matched strangers online. You can start chatting without creating
+          an account or logging in, making it easy to begin a conversation
+          without a lengthy registration process.
+        </p>
+
+        <Link
+          href="/chat"
+          className="inline-block bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-xl font-semibold text-lg"
+        >
+          🚀 Start Text Chat
+        </Link>
+
+      </section>
+
+      {/* Features */}
       <section className="mt-16">
 
-  <h2 className="text-3xl font-bold mb-6">
-    Why Use Text Chat?
-  </h2>
+        <h2 className="text-3xl font-bold mb-8">
+          Text Chat Features
+        </h2>
 
-  <p className="text-gray-300 leading-8 mb-6">
-    Text chat is one of the simplest ways to communicate online. You can chat
-    with strangers without using your camera or microphone, making every
-    conversation comfortable and private.
-  </p>
+        <div className="grid md:grid-cols-2 gap-6">
 
-  <p className="text-gray-300 leading-8 mb-6">
-    ChatNova allows users to connect instantly with random people from around
-    the world. There is no registration, no login and no complicated setup.
-    Just click Start Chat and begin your conversation.
-  </p>
+          <div className="bg-gray-900 p-6 rounded-xl">
+            <h3 className="text-xl font-semibold mb-3">
+              💬 Text-Based Conversations
+            </h3>
 
-</section>
+            <p className="text-gray-300 leading-7">
+              Chat through text messages without needing a camera or
+              microphone.
+            </p>
+          </div>
 
-<section className="mt-16">
+          <div className="bg-gray-900 p-6 rounded-xl">
+            <h3 className="text-xl font-semibold mb-3">
+              🔒 No Registration Required
+            </h3>
 
-  <h2 className="text-3xl font-bold mb-8">
-    Features of ChatNova Text Chat
-  </h2>
+            <p className="text-gray-300 leading-7">
+              Start a conversation without creating a profile or signing in.
+            </p>
+          </div>
 
-  <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-gray-900 p-6 rounded-xl">
+            <h3 className="text-xl font-semibold mb-3">
+              ⚡ Quick Matching
+            </h3>
 
-    <div className="bg-gray-900 p-6 rounded-xl">
-      <h3 className="text-xl font-semibold mb-3">
-        💬 Instant Text Chat
-      </h3>
+            <p className="text-gray-300 leading-7">
+              Get connected with another available stranger when you start
+              a chat.
+            </p>
+          </div>
 
-      <p className="text-gray-300">
-        Connect with random strangers in just one click.
-      </p>
-    </div>
+          <div className="bg-gray-900 p-6 rounded-xl">
+            <h3 className="text-xl font-semibold mb-3">
+              🌍 Meet People Worldwide
+            </h3>
 
-    <div className="bg-gray-900 p-6 rounded-xl">
-      <h3 className="text-xl font-semibold mb-3">
-        🔒 Anonymous Conversations
-      </h3>
+            <p className="text-gray-300 leading-7">
+              Text conversations can introduce you to people from different
+              places and backgrounds.
+            </p>
+          </div>
 
-      <p className="text-gray-300">
-        Stay private without revealing your personal identity.
-      </p>
-    </div>
+        </div>
 
-    <div className="bg-gray-900 p-6 rounded-xl">
-      <h3 className="text-xl font-semibold mb-3">
-        ⚡ Fast Matching
-      </h3>
+      </section>
 
-      <p className="text-gray-300">
-        Meet a new stranger within seconds whenever you want.
-      </p>
-    </div>
+      {/* How it works */}
+      <section className="mt-16">
 
-    <div className="bg-gray-900 p-6 rounded-xl">
-      <h3 className="text-xl font-semibold mb-3">
-        🌍 Worldwide Community
-      </h3>
+        <h2 className="text-3xl font-bold mb-6">
+          How Does Text Chat Work?
+        </h2>
 
-      <p className="text-gray-300">
-        Chat with people from different countries and cultures.
-      </p>
-    </div>
+        <div className="space-y-5 text-gray-300 leading-8">
 
-  </div>
+          <p>
+            Start by selecting the{" "}
+            <strong className="text-white">Start Text Chat</strong> button.
+            ChatNova then takes you to the chat experience where you can
+            communicate with a randomly matched stranger.
+          </p>
 
-</section>
-<section className="mt-16">
+          <p>
+            The conversation is text-based, so you can communicate through
+            messages without using a camera or microphone.
+          </p>
 
-  <h2 className="text-3xl font-bold mb-6">
-    How Text Chat Works
-  </h2>
+          <p>
+            If you no longer want to continue a conversation, you can leave
+            the chat and look for another stranger using the available chat
+            controls.
+          </p>
 
-  <div className="space-y-6 text-gray-300 leading-8">
+        </div>
 
-    <p>
-      ChatNova makes text chatting easy. Click the
-      <strong> Start Text Chat </strong>
-      button and you will instantly be connected with another random user.
-    </p>
+      </section>
 
-    <p>
-      There is no registration process and no personal information required.
-      Every conversation starts anonymously.
-    </p>
+      {/* Safety */}
+      <section className="mt-16">
 
-    <p>
-      If you want to meet someone new, simply disconnect and connect with
-      another stranger in one click.
-    </p>
+        <h2 className="text-3xl font-bold mb-6">
+          Stay Safe While Using Text Chat
+        </h2>
 
-  </div>
+        <div className="space-y-5 text-gray-300 leading-8">
 
-</section>
+          <p>
+            Random conversations can involve people you do not know.
+            Avoid sharing sensitive information such as your home address,
+            phone number, passwords, financial details or other private
+            information.
+          </p>
 
-<section className="mt-16">
+          <p>
+            If another user behaves inappropriately, end the conversation
+            rather than continuing an uncomfortable interaction.
+          </p>
 
-  <h2 className="text-3xl font-bold mb-6">
-    Is Text Chat Safe?
-  </h2>
+        </div>
 
-  <p className="text-gray-300 leading-8 mb-6">
-    Text chat is safe when you avoid sharing sensitive information such as your
-    phone number, address, passwords or financial details.
-  </p>
+      </section>
 
-  <p className="text-gray-300 leading-8">
-    If another user behaves inappropriately, simply disconnect from the
-    conversation. ChatNova is designed to provide a safe and enjoyable
-    anonymous chatting experience.
-  </p>
+      {/* FAQ */}
+      <section className="mt-16">
 
-</section>
+        <h2 className="text-3xl font-bold mb-8">
+          Frequently Asked Questions
+        </h2>
 
-<section className="mt-16">
+        <div className="space-y-8">
 
-  <h2 className="text-3xl font-bold mb-8">
-    Frequently Asked Questions
-  </h2>
+          <div>
+            <h3 className="text-xl font-semibold mb-2">
+              What is text chat on ChatNova?
+            </h3>
 
-  <div className="space-y-8">
+            <p className="text-gray-300 leading-8">
+              ChatNova provides text-based conversations with randomly
+              matched strangers. You can start chatting without creating
+              an account.
+            </p>
+          </div>
 
-    <div>
-      <h3 className="text-xl font-semibold mb-2">
-        Is text chat free?
-      </h3>
+          <div>
+            <h3 className="text-xl font-semibold mb-2">
+              Is ChatNova text chat free?
+            </h3>
 
-      <p className="text-gray-300 leading-8">
-        Yes. ChatNova offers completely free text chat.
-      </p>
-    </div>
+            <p className="text-gray-300 leading-8">
+              Yes. ChatNova's text chat is free to use and does not require
+              a subscription.
+            </p>
+          </div>
 
-    <div>
-      <h3 className="text-xl font-semibold mb-2">
-        Do I need an account?
-      </h3>
+          <div>
+            <h3 className="text-xl font-semibold mb-2">
+              Do I need an account to use text chat?
+            </h3>
 
-      <p className="text-gray-300 leading-8">
-        No. Registration is not required.
-      </p>
-    </div>
+            <p className="text-gray-300 leading-8">
+              No. ChatNova does not require registration or login before
+              starting a text chat.
+            </p>
+          </div>
 
-    <div>
-      <h3 className="text-xl font-semibold mb-2">
-        Can I leave anytime?
-      </h3>
+          <div>
+            <h3 className="text-xl font-semibold mb-2">
+              Can I leave a text chat?
+            </h3>
 
-      <p className="text-gray-300 leading-8">
-        Yes. You can disconnect whenever you want and instantly find another
-        stranger.
-      </p>
-    </div>
+            <p className="text-gray-300 leading-8">
+              Yes. You can leave a conversation and use the chat controls
+              to connect with another stranger.
+            </p>
+          </div>
 
-  </div>
+        </div>
 
-</section>
+      </section>
 
-<section className="mt-20 text-center bg-gray-900 rounded-2xl p-10">
+      {/* Related pages */}
+      <section className="mt-16">
 
-  <h2 className="text-4xl font-bold mb-4">
-    Start Text Chat Now
-  </h2>
+        <h2 className="text-3xl font-bold mb-8">
+          Explore More Chat Options
+        </h2>
 
-  <p className="text-gray-300 text-lg mb-8">
-    Meet new people, make friends and enjoy free anonymous text chat on
-    ChatNova.
-  </p>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
 
-  <Link
-    href="/chat"
-    className="inline-block bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-xl text-lg font-semibold"
-  >
-    🚀 Start Text Chat
-  </Link>
+          <Link
+            href="/random-chat"
+            className="bg-gray-900 hover:bg-gray-800 p-5 rounded-xl transition"
+          >
+            <h3 className="font-semibold text-lg">
+              Random Chat
+            </h3>
 
-</section>
+            <p className="text-gray-400 mt-2 text-sm">
+              Start a conversation with a randomly matched stranger.
+            </p>
+          </Link>
 
-<section className="mt-20">
+          <Link
+            href="/anonymous-chat"
+            className="bg-gray-900 hover:bg-gray-800 p-5 rounded-xl transition"
+          >
+            <h3 className="font-semibold text-lg">
+              Anonymous Chat
+            </h3>
 
-  <h2 className="text-3xl font-bold mb-8">
-    Explore More Chat Pages
-  </h2>
+            <p className="text-gray-400 mt-2 text-sm">
+              Learn more about anonymous conversations.
+            </p>
+          </Link>
 
-  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <Link
+            href="/online-chat"
+            className="bg-gray-900 hover:bg-gray-800 p-5 rounded-xl transition"
+          >
+            <h3 className="font-semibold text-lg">
+              Online Chat
+            </h3>
 
-    <Link href="/random-chat" className="bg-gray-900 hover:bg-gray-800 p-5 rounded-xl">
-      <h3 className="font-semibold text-lg">Random Chat</h3>
-    </Link>
+            <p className="text-gray-400 mt-2 text-sm">
+              Explore online text conversations.
+            </p>
+          </Link>
 
-    <Link href="/anonymous-chat" className="bg-gray-900 hover:bg-gray-800 p-5 rounded-xl">
-      <h3 className="font-semibold text-lg">Anonymous Chat</h3>
-    </Link>
+          <Link
+            href="/free-chat"
+            className="bg-gray-900 hover:bg-gray-800 p-5 rounded-xl transition"
+          >
+            <h3 className="font-semibold text-lg">
+              Free Chat
+            </h3>
 
-    <Link href="/online-chat" className="bg-gray-900 hover:bg-gray-800 p-5 rounded-xl">
-      <h3 className="font-semibold text-lg">Online Chat</h3>
-    </Link>
+            <p className="text-gray-400 mt-2 text-sm">
+              Find out more about free chat on ChatNova.
+            </p>
+          </Link>
 
-    <Link href="/free-chat" className="bg-gray-900 hover:bg-gray-800 p-5 rounded-xl">
-      <h3 className="font-semibold text-lg">Free Chat</h3>
-    </Link>
+        </div>
 
-  </div>
-
-</section>
+      </section>
 
     </main>
   );
